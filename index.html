@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Liza's Cozy Kitchen</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --cream:#fff8ee;
+    --cream2:#fff1dc;
+    --pink:#f49ab6;
+    --pink2:#ffd2df;
+    --dark:#5d4644;
+    --brown:#9b7065;
+    --green:#9bc7a4;
+    --yellow:#ffd978;
+    --white:#ffffff;
+    --shadow:0 8px 20px rgba(112,77,68,.12);
+}
+
+body{
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    background:#f8e9d8;
+    color:var(--dark);
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+    border:0;
+}
+
+#app{
+    width:100%;
+    min-height:100vh;
+}
+
+/* =========================
+   APP CONTAINER
+========================= */
+
+.game{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    background:var(--cream);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(0,0,0,.12);
+}
+
+.screen{
+    min-height:100vh;
+    padding-bottom:90px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    padding:18px 18px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    color:#8e625b;
+}
+
+.logo small{
+    display:block;
+    font-size:10px;
+    color:#c48b83;
+    letter-spacing:1px;
+}
+
+.stats{
+    display:flex;
+    gap:7px;
+}
+
+.stat{
+    background:white;
+    padding:7px 10px;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* =========================
+   HOME
+========================= */
+
+.hero{
+    margin:12px 18px;
+    border-radius:30px;
+    padding:30px 20px;
+    text-align:center;
+    background:
+        radial-gradient(circle at 20% 20%,#fff 0 10px,transparent 11px),
+        radial-gradient(circle at 80% 30%,#fff 0 8px,transparent 9px),
+        linear-gradient(145deg,#ffdbe6,#fff0d8);
+    box-shadow:var(--shadow);
+}
+
+.hero-icon{
+    width:120px;
+    height:120px;
+    margin:auto;
+    border-radius:50%;
+    background:#fff9ef;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    box-shadow:0 8px 0 #eec7ae;
+}
+
+.hero h1{
+    margin-top:18px;
+    font-size:28px;
+    color:#795754;
+}
+
+.hero p{
+    margin-top:7px;
+    color:#a27a73;
+    font-size:13px;
+}
+
+.play-btn{
+    margin-top:20px;
+    width:100%;
+    padding:16px;
+    border-radius:18px;
+    background:var(--pink);
+    color:white;
+    font-weight:900;
+    font-size:17px;
+    box-shadow:0 6px 0 #d47796;
+    transition:.15s;
+}
+
+.play-btn:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #d47796;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    padding:15px 18px;
+}
+
+.menu-card{
+    background:white;
+    border-radius:22px;
+    padding:18px 10px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:.15s;
+}
+
+.menu-card:active{
+    transform:scale(.97);
+}
+
+.menu-card .icon{
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.menu-card b{
+    font-size:14px;
+}
+
+.menu-card span{
+    display:block;
+    color:#ae8d85;
+    font-size:11px;
+    margin-top:4px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:18px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.section-title h2{
+    font-size:20px;
+}
+
+.back{
+    background:#fff;
+    border-radius:14px;
+    padding:8px 12px;
+    box-shadow:var(--shadow);
+    color:var(--brown);
+}
+
+/* =========================
+   KITCHEN
+========================= */
+
+.kitchen-bg{
+    min-height:calc(100vh - 90px);
+    background:
+        linear-gradient(#fff4e4 0 48%,#e9c8a8 48% 49%,#c99c7e 49%);
+    padding:15px;
+}
+
+.level-title{
+    background:white;
+    border-radius:18px;
+    padding:13px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    margin-bottom:12px;
+}
+
+.level-title h2{
+    font-size:20px;
+}
+
+.level-title p{
+    font-size:11px;
+    color:#a9867e;
+}
+
+.customer-area{
+    background:#fffaf2;
+    border-radius:25px;
+    padding:15px;
+    box-shadow:var(--shadow);
+    margin-bottom:12px;
+}
+
+.customer{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.customer-avatar{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#ffe1d0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+}
+
+.customer-info{
+    flex:1;
+}
+
+.customer-info strong{
+    font-size:15px;
+}
+
+.order{
+    margin-top:6px;
+    background:#fff;
+    border-radius:12px;
+    padding:7px;
+    font-size:12px;
+}
+
+.patience{
+    height:10px;
+    background:#eadbd2;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.patience-fill{
+    height:100%;
+    width:100%;
+    background:var(--green);
+    transition:.2s;
+}
+
+/* ingredients */
+
+.cooking-panel{
+    margin-top:12px;
+    background:#fff;
+    border-radius:25px;
+    padding:16px;
+    box-shadow:var(--shadow);
+}
+
+.cooking-panel h3{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.ingredients{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.ingredient{
+    background:#fff4e9;
+    border-radius:16px;
+    padding:10px 4px;
+    text-align:center;
+    border:2px solid transparent;
+}
+
+.ingredient.selected{
+    border-color:var(--pink);
+    background:#ffe6ee;
+}
+
+.ingredient .food{
+    font-size:29px;
+}
+
+.ingredient span{
+    display:block;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.progress-box{
+    margin-top:15px;
+}
+
+.progress{
+    height:13px;
+    background:#eee0d7;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:var(--pink);
+    transition:.2s;
+}
+
+.action-btn{
+    width:100%;
+    margin-top:12px;
+    padding:14px;
+    border-radius:16px;
+    background:#9fcba7;
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.action-btn:disabled{
+    opacity:.45;
+}
+
+/* timing */
+
+.timing{
+    margin-top:15px;
+    display:none;
+}
+
+.timing-track{
+    position:relative;
+    height:30px;
+    border-radius:20px;
+    background:#eadfd9;
+    overflow:hidden;
+}
+
+.good-zone{
+    position:absolute;
+    left:38%;
+    width:24%;
+    top:0;
+    bottom:0;
+    background:#9bc9a2;
+}
+
+.marker{
+    position:absolute;
+    top:3px;
+    left:0;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#e884a5;
+    z-index:2;
+}
+
+/* =========================
+   RECIPE
+========================= */
+
+.recipe{
+    background:white;
+    border-radius:22px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    display:flex;
+    gap:14px;
+    align-items:center;
+}
+
+.recipe-icon{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    background:#fff0dc;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+}
+
+.recipe-info{
+    flex:1;
+}
+
+.recipe-info h3{
+    font-size:16px;
+}
+
+.recipe-info p{
+    font-size:11px;
+    color:#aa8c84;
+    margin-top:4px;
+}
+
+.locked{
+    opacity:.55;
+}
+
+.lock{
+    font-size:22px;
+}
+
+/* =========================
+   SHOP
+========================= */
+
+.upgrade{
+    background:white;
+    border-radius:22px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.upgrade-icon{
+    width:58px;
+    height:58px;
+    background:#fff0dc;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+}
+
+.upgrade-info{
+    flex:1;
+}
+
+.upgrade-info h3{
+    font-size:14px;
+}
+
+.upgrade-info p{
+    font-size:10px;
+    color:#aa8c84;
+    margin-top:4px;
+}
+
+.buy{
+    background:var(--pink);
+    color:white;
+    border-radius:13px;
+    padding:9px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.buy:disabled{
+    opacity:.4;
+}
+
+/* =========================
+   STORY
+========================= */
+
+.story{
+    background:white;
+    border-radius:25px;
+    padding:22px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+}
+
+.story-number{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#ffd5e1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.story h3{
+    margin-bottom:8px;
+}
+
+.story p{
+    font-size:13px;
+    line-height:1.6;
+    color:#8d706b;
+}
+
+/* =========================
+   HOW TO
+========================= */
+
+.info-card{
+    background:white;
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+}
+
+.info-card h3{
+    margin-bottom:8px;
+}
+
+.info-card p{
+    font-size:13px;
+    line-height:1.6;
+    color:#8d706b;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.setting{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:white;
+    padding:16px;
+    border-radius:18px;
+    margin-bottom:10px;
+    box-shadow:var(--shadow);
+}
+
+.toggle{
+    width:48px;
+    height:27px;
+    border-radius:30px;
+    background:#ddd;
+    padding:3px;
+}
+
+.toggle.on{
+    background:#f09ab5;
+}
+
+.toggle-circle{
+    width:21px;
+    height:21px;
+    border-radius:50%;
+    background:white;
+    transition:.2s;
+}
+
+.toggle.on .toggle-circle{
+    transform:translateX(21px);
+}
+
+.danger{
+    width:100%;
+    padding:14px;
+    background:#df8d8d;
+    color:white;
+    border-radius:15px;
+    font-weight:bold;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:480px;
+    background:rgba(255,250,243,.96);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-around;
+    padding:10px 5px 12px;
+    border-top:1px solid #eadbd2;
+    z-index:50;
+}
+
+.nav-item{
+    background:none;
+    color:#a98c84;
+    font-size:10px;
+    text-align:center;
+}
+
+.nav-item.active{
+    color:#e889a7;
+    font-weight:bold;
+}
+
+.nav-item span{
+    display:block;
+    font-size:21px;
+    margin-bottom:2px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(71,48,43,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:400px;
+    background:#fffaf3;
+    border-radius:30px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+}
+
+.modal-box .big{
+    font-size:65px;
+}
+
+.modal-box h2{
+    margin-top:10px;
+}
+
+.modal-box p{
+    color:#967973;
+    margin:10px 0 18px;
+    line-height:1.5;
+}
+
+.modal-btn{
+    width:100%;
+    padding:14px;
+    background:var(--pink);
+    color:white;
+    border-radius:16px;
+    font-weight:bold;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%) translateY(-100px);
+    background:#594744;
+    color:white;
+    padding:12px 18px;
+    border-radius:30px;
+    z-index:200;
+    transition:.3s;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(min-width:600px){
+    body{
+        padding:20px 0;
+    }
+
+    .game{
+        border-radius:30px;
+        min-height:calc(100vh - 40px);
+    }
+
+    .bottom-nav{
+        bottom:20px;
+        border-radius:0 0 30px 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="modal">
+    <div class="modal-box" id="modalContent"></div>
+</div>
+
+<script>
+
+/* =====================================================
+   LIZA'S COZY KITCHEN
+   SINGLE FILE GAME
+===================================================== */
+
+/* =========================
+   GAME DATA
+========================= */
+
+const recipes = [
+    {
+        id:"pancake",
+        name:"Pancake",
+        icon:"🥞",
+        reward:24,
+        unlock:0,
+        ingredients:["Flour","Egg","Milk"],
+        emojis:["🌾","🥚","🥛"]
+    },
+    {
+        id:"egg",
+        name:"Fried Egg",
+        icon:"🍳",
+        reward:20,
+        unlock:0,
+        ingredients:["Egg","Butter","Salt"],
+        emojis:["🥚","🧈","🧂"]
+    },
+    {
+        id:"toast",
+        name:"Toast",
+        icon:"🍞",
+        reward:28,
+        unlock:3,
+        ingredients:["Bread","Butter","Salt"],
+        emojis:["🍞","🧈","🧂"]
+    },
+    {
+        id:"milk",
+        name:"Strawberry Milk",
+        icon:"🍓",
+        reward:32,
+        unlock:6,
+        ingredients:["Milk","Strawberry","Sugar"],
+        emojis:["🥛","🍓","🍚"]
+    },
+    {
+        id:"waffle",
+        name:"Waffle",
+        icon:"🧇",
+        reward:40,
+        unlock:10,
+        ingredients:["Flour","Egg","Milk"],
+        emojis:["🌾","🥚","🥛"]
+    },
+    {
+        id:"pasta",
+        name:"Pasta",
+        icon:"🍝",
+        reward:48,
+        unlock:15,
+        ingredients:["Pasta","Tomato","Cheese"],
+        emojis:["🍝","🍅","🧀"]
+    },
+    {
+        id:"burger",
+        name:"Burger",
+        icon:"🍔",
+        reward:60,
+        unlock:20,
+        ingredients:["Bread","Meat","Cheese"],
+        emojis:["🍞","🥩","🧀"]
+    },
+    {
+        id:"cake",
+        name:"Strawberry Cake",
+        icon:"🍰",
+        reward:80,
+        unlock:30,
+        ingredients:["Flour","Milk","Strawberry"],
+        emojis:["🌾","🥛","🍓"]
+    }
+];
+
+const upgrades = [
+    {
+        id:"stove",
+        name:"Cozy Stove",
+        icon:"🔥",
+        cost:150,
+        description:"Makes cooking timing easier.",
+        effect:"stove"
+    },
+    {
+        id:"pan",
+        name:"Copper Pan",
+        icon:"🍳",
+        cost:200,
+        description:"Improves cooking accuracy.",
+        effect:"pan"
+    },
+    {
+        id:"fridge",
+        name:"Pastel Fridge",
+        icon:"🧊",
+        cost:260,
+        description:"Customers wait longer.",
+        effect:"patience"
+    },
+    {
+        id:"counter",
+        name:"Wooden Counter",
+        icon:"🪵",
+        cost:320,
+        description:"Reduces preparation work.",
+        effect:"prep"
+    },
+    {
+        id:"oven",
+        name:"Little Oven",
+        icon:"♨️",
+        cost:420,
+        description:"+20% coins earned.",
+        effect:"coins"
+    },
+    {
+        id:"flower",
+        name:"Flower Decor",
+        icon:"🌸",
+        cost:300,
+        description:"Customers gain patience.",
+        effect:"patience2"
+    },
+    {
+        id:"utensils",
+        name:"Cute Utensils",
+        icon:"🥄",
+        cost:380,
+        description:"+15% coins earned.",
+        effect:"coins2"
+    },
+    {
+        id:"lights",
+        name:"Fairy Lights",
+        icon:"✨",
+        cost:240,
+        description:"+5% coins earned.",
+        effect:"coins3"
+    }
+];
+
+const customers = [
+    {name:"Mia",icon:"👩🏻"},
+    {name:"Sophie",icon:"👧🏻"},
+    {name:"Emma",icon:"👩🏼"},
+    {name:"Lily",icon:"👩🏻‍🦰"},
+    {name:"Noah",icon:"👦🏻"},
+    {name:"Ava",icon:"👩🏽"}
+];
+
+const stories = [
+    {
+        title:"The Little Dream",
+        text:"Liza has always dreamed of having a tiny cozy kitchen where everyone can enjoy delicious homemade food."
+    },
+    {
+        title:"First Customer",
+        text:"One sunny morning, the first customer walks into Liza's little kitchen. This is where her journey begins."
+    },
+    {
+        title:"A Busier Kitchen",
+        text:"Word spreads quickly. More customers arrive, and Liza learns that running a kitchen takes patience and speed."
+    },
+    {
+        title:"The Secret Recipe",
+        text:"Liza discovers an old recipe hidden inside her grandmother's cookbook."
+    },
+    {
+        title:"The Cozy Café",
+        text:"With every new recipe and every happy customer, the little kitchen slowly becomes a warm and lively café."
+    },
+    {
+        title:"Liza's Dream",
+        text:"After all the hard work, Liza finally realizes that the dream was never just about the café. It was about creating a place where people feel at home."
+    }
+];
+
+/* =========================
+   GAME STATE
+========================= */
+
+let saved = JSON.parse(localStorage.getItem("lizaCozyKitchen"));
+
+let state = saved || {
+    coins:120,
+    stars:0,
+    score:0,
+    level:1,
+    unlockedRecipes:["pancake","egg"],
+    purchasedUpgrades:[],
+    sound:true,
+    music:true,
+    story:0
+};
+
+function save(){
+    localStorage.setItem(
+        "lizaCozyKitchen",
+        JSON.stringify(state)
+    );
+}
+
+let currentRecipe = null;
+let selectedIngredients = [];
+let prepProgress = 0;
+let patience = 100;
+let patienceTimer = null;
+let cooking = false;
+let marker = 0;
+let markerDirection = 1;
+let cookingInterval = null;
+let missedCustomers = 0;
+
+/* =========================
+   APP
+========================= */
+
+const app = document.getElementById("app");
+
+function render(page="home"){
+
+    let html = "";
+
+    if(page==="home") html = homePage();
+    if(page==="kitchen") html = kitchenPage();
+    if(page==="recipes") html = recipesPage();
+    if(page==="shop") html = shopPage();
+    if(page==="story") html = storyPage();
+    if(page==="how") html = howPage();
+    if(page==="settings") html = settingsPage();
+
+    app.innerHTML = `
+        <div class="game">
+            <div class="screen">
+                ${html}
+            </div>
+            ${bottomNav(page)}
+        </div>
+    `;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+function topbar(){
+
+    return `
+    <div class="topbar">
+
+        <div class="logo">
+            Liza's Cozy Kitchen
+            <small>♡ homemade with love ♡</small>
+        </div>
+
+        <div class="stats">
+            <div class="stat">🪙 ${state.coins}</div>
+            <div class="stat">⭐ ${state.stars}</div>
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================
+   HOME
+========================= */
+
+function homePage(){
+
+    return `
+    ${topbar()}
+
+    <div class="hero">
+
+        <div class="hero-icon">👩🏻‍🍳</div>
+
+        <h1>Liza's Cozy Kitchen</h1>
+
+        <p>
+            Cook delicious food, serve happy customers,
+            and build your cozy little café.
+        </p>
+
+        <button class="play-btn" onclick="startGame()">
+            🍳 Start Cooking
+        </button>
+
+    </div>
+
+    <div class="menu-grid">
+
+        <button class="menu-card" onclick="render('story')">
+            <div class="icon">📖</div>
+            <b>Story</b>
+            <span>Follow Liza's journey</span>
+        </button>
+
+        <button class="menu-card" onclick="render('how')">
+            <div class="icon">💡</div>
+            <b>How to Play</b>
+            <span>Learn the basics</span>
+        </button>
+
+        <button class="menu-card" onclick="render('shop')">
+            <div class="icon">🛒</div>
+            <b>Kitchen Shop</b>
+            <span>Upgrade your kitchen</span>
+        </button>
+
+        <button class="menu-card" onclick="render('recipes')">
+            <div class="icon">📕</div>
+            <b>Recipe Book</b>
+            <span>View recipes</span>
+        </button>
+
+    </div>
+
+    <div class="section">
+
+        <div class="section-title">
+            <h2>🌷 Your Progress</h2>
+        </div>
+
+        <div class="info-card">
+            <p>
+                Level ${state.level}<br>
+                ⭐ ${state.stars} stars<br>
+                🪙 ${state.coins} coins<br>
+                🏆 ${state.score} total score
+            </p>
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame(){
+
+    const available =
+        recipes.filter(r =>
+            state.unlockedRecipes.includes(r.id)
+        );
+
+    currentRecipe =
+        available[Math.floor(Math.random()*available.length)];
+
+    selectedIngredients = [];
+    prepProgress = 0;
+    patience = 100;
+    missedCustomers = 0;
+
+    render("kitchen");
+
+    startPatience();
+}
+
+/* =========================
+   KITCHEN
+========================= */
+
+function kitchenPage(){
+
+    if(!currentRecipe){
+
+        currentRecipe = recipes[0];
+
+    }
+
+    const customer =
+        customers[Math.floor(Math.random()*customers.length)];
+
+    return `
+    <div class="kitchen-bg">
+
+        <div class="level-title">
+
+            <button class="back" onclick="stopGame();render('home')">
+                ← Back
+            </button>
+
+            <h2>🍳 Kitchen — Level ${state.level}</h2>
+
+            <p>Serve customers before they lose patience!</p>
+
+        </div>
+
+        <div class="customer-area">
+
+            <div class="customer">
+
+                <div class="customer-avatar">
+                    ${customer.icon}
+                </div>
+
+                <div class="customer-info">
+
+                    <strong>${customer.name}</strong>
+
+                    <div class="order">
+                        Wants: ${currentRecipe.icon}
+                        <b>${currentRecipe.name}</b>
+                    </div>
+
+                    <div class="patience">
+                        <div
+                            id="patienceFill"
+                            class="patience-fill"
+                            style="width:${patience}%"
+                        ></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="cooking-panel">
+
+            <h3>
+                ${currentRecipe.icon}
+                Prepare ${currentRecipe.name}
+            </h3>
+
+            <div class="ingredients">
+
+                ${currentRecipe.ingredients.map((name,i)=>`
+
+                    <button
+                        class="ingredient ${
+                            selectedIngredients.includes(name)
+                            ? "selected":""
+                        }"
+                        onclick="selectIngredient('${name}')"
+                    >
+
+                        <div class="food">
+                            ${currentRecipe.emojis[i]}
+                        </div>
+
+                        <span>${name}</span>
+
+                    </button>
+
+                `).join("")}
+
+            </div>
+
+            <div class="progress-box">
+
+                <div class="progress">
+                    <div
+                        id="prepProgress"
+                        class="progress-fill"
+                        style="width:${prepProgress}%"
+                    ></div>
+                </div>
+
+            </div>
+
+            <button
+                class="action-btn"
+                id="prepBtn"
+                onclick="prepareFood()"
+            >
+                🥣 Prepare Food
+            </button>
+
+            <div class="timing" id="timing">
+
+                <p style="text-align:center;margin-bottom:8px">
+                    Stop the marker inside the green zone!
+                </p>
+
+                <div class="timing-track">
+
+                    <div class="good-zone"></div>
+
+                    <div
+                        id="marker"
+                        class="marker"
+                    ></div>
+
+                </div>
+
+                <button
+                    class="action-btn"
+                    onclick="stopCooking()"
+                >
+                    🔥 Stop Cooking
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================
+   INGREDIENT
+========================= */
+
+function selectIngredient(name){
+
+    if(selectedIngredients.includes(name)){
+
+        selectedIngredients =
+            selectedIngredients.filter(x=>x!==name);
+
+    }else{
+
+        selectedIngredients.push(name);
+
+    }
+
+    renderKitchenOnly();
+
+}
+
+function renderKitchenOnly(){
+
+    const kitchen = document.querySelector(".kitchen-bg");
+
+    if(kitchen){
+
+        const old =
+            document.querySelector(".screen");
+
+        old.innerHTML =
+            kitchenPage();
+
+    }
+
+}
+
+/* =========================
+   PREPARE
+========================= */
+
+function prepareFood(){
+
+    const needed = currentRecipe.ingredients.length;
+
+    if(selectedIngredients.length < needed){
+
+        toast(
+            "Pilih semua bahan terlebih dahulu! 🥣"
+        );
+
+        return;
+
+    }
+
+    prepProgress += 25;
+
+    if(
+        state.purchasedUpgrades.includes("counter")
+    ){
+
+        prepProgress += 15;
+
+    }
+
+    if(prepProgress >= 100){
+
+        prepProgress = 100;
+
+        document.getElementById("prepBtn").disabled = true;
+
+        document.getElementById("prepBtn").innerText =
+            "✅ Prepared!";
+
+        document.getElementById("timing").style.display =
+            "block";
+
+        startCooking();
+
+    }
+
+    const bar =
+        document.getElementById("prepProgress");
+
+    if(bar)
+        bar.style.width = prepProgress+"%";
+
+}
+
+/* =========================
+   COOKING
+========================= */
+
+function startCooking(){
+
+    cooking = true;
+    marker = 0;
+    markerDirection = 1;
+
+    cookingInterval =
+        setInterval(()=>{
+
+            marker += markerDirection * 2;
+
+            if(marker >= 100){
+
+                marker = 100;
+                markerDirection = -1;
+
+            }
+
+            if(marker <= 0){
+
+                marker = 0;
+                markerDirection = 1;
+
+            }
+
+            const el =
+                document.getElementById("marker");
+
+            if(el)
+                el.style.left =
+                    `calc(${marker}% - 12px)`;
+
+        },30);
+
+}
+
+function stopCooking(){
+
+    if(!cooking) return;
+
+    cooking = false;
+
+    clearInterval(cookingInterval);
+
+    let quality = "GOOD";
+    let rewardMultiplier = 1;
+
+    let distance = Math.abs(marker-50);
+
+    if(distance <= 8){
+
+        quality = "PERFECT";
+        rewardMultiplier = 1.5;
+
+    }else if(distance <= 20){
+
+        quality = "GOOD";
+        rewardMultiplier = 1;
+
+    }else{
+
+        quality = "BURNT";
+        rewardMultiplier = .5;
+
+    }
+
+    let reward =
+        Math.floor(
+            currentRecipe.reward *
+            rewardMultiplier
+        );
+
+    let bonus = 1;
+
+    if(state.purchasedUpgrades.includes("oven"))
+        bonus += .20;
+
+    if(state.purchasedUpgrades.includes("utensils"))
+        bonus += .15;
+
+    if(state.purchasedUpgrades.includes("lights"))
+        bonus += .05;
+
+    reward = Math.floor(reward*bonus);
+
+    state.coins += reward;
+
+    state.score += reward;
+
+    if(quality==="PERFECT"){
+
+        state.stars++;
+
+    }
+
+    save();
+
+    showResult(
+        quality,
+        reward
+    );
+
+}
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(quality,reward){
+
+    const icon =
+        quality==="PERFECT"
+        ? "🌟"
+        : quality==="GOOD"
+        ? "😊"
+        : "🔥";
+
+    document.getElementById("modalContent").innerHTML = `
+
+        <div class="big">${icon}</div>
+
+        <h2>${quality}!</h2>
+
+        <p>
+            You served ${currentRecipe.name}
+            successfully.
+            <br><br>
+            🪙 +${reward} coins
+            <br>
+            ⭐ ${quality==="PERFECT" ? "+1 star":"No bonus star"}
+        </p>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal();nextCustomer()"
+        >
+            Continue 🍰
+        </button>
+
+    `;
+
+    document.getElementById("modal")
+        .classList.add("show");
+
+}
+
+/* =========================
+   NEXT CUSTOMER
+========================= */
+
+function nextCustomer(){
+
+    currentRecipe =
+        recipes.filter(r =>
+            state.unlockedRecipes.includes(r.id)
+        )[Math.floor(
+            Math.random() *
+            state.unlockedRecipes.length
+        )];
+
+    selectedIngredients=[];
+    prepProgress=0;
+    patience=100;
+
+    render("kitchen");
+
+    startPatience();
+
+}
+
+/* =========================
+   PATIENCE
+========================= */
+
+function startPatience(){
+
+    clearInterval(patienceTimer);
+
+    let decrease = 1;
+
+    if(state.purchasedUpgrades.includes("fridge"))
+        decrease=.7;
+
+    if(state.purchasedUpgrades.includes("flower"))
+        decrease=.8;
+
+    patienceTimer =
+        setInterval(()=>{
+
+            patience -= decrease;
+
+            const fill =
+                document.getElementById(
+                    "patienceFill"
+                );
+
+            if(fill)
+                fill.style.width =
+                    Math.max(0,patience)+"%";
+
+            if(patience <= 0){
+
+                clearInterval(patienceTimer);
+
+                missedCustomers++;
+
+                if(missedCustomers >= 3){
+
+                    stopGame();
+
+                    showGameOver();
+
+                }else{
+
+                    toast(
+                        "Customer left! 😢"
+                    );
+
+                    nextCustomer();
+
+                }
+
+            }
+
+        },300);
+
+}
+
+function stopGame(){
+
+    clearInterval(patienceTimer);
+    clearInterval(cookingInterval);
+
+}
+
+function showGameOver(){
+
+    document.getElementById("modalContent").innerHTML=`
+
+        <div class="big">😢</div>
+
+        <h2>Kitchen Closed</h2>
+
+        <p>
+            Three customers left without
+            receiving their orders.
+        </p>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal();render('home')"
+        >
+            Back Home
+        </button>
+
+    `;
+
+    document.getElementById("modal")
+        .classList.add("show");
+
+}
+
+/* =========================
+   RECIPES
+========================= */
+
+function recipesPage(){
+
+    return `
+    ${topbar()}
+
+    <div class="section">
+
+        <div class="section-title">
+            <h2>📕 Recipe Book</h2>
+        </div>
+
+        ${recipes.map(r=>{
+
+            const unlocked =
+                state.unlockedRecipes.includes(r.id);
+
+            return `
+
+            <div class="recipe ${unlocked?"":"locked"}">
+
+                <div class="recipe-icon">
+                    ${r.icon}
+                </div>
+
+                <div class="recipe-info">
+
+                    <h3>${r.name}</h3>
+
+                    ${
+                        unlocked
+                        ?
+                        `<p>
+                            ${r.ingredients.join(" + ")}
+                            <br>
+                            Reward: 🪙 ${r.reward}
+                        </p>`
+                        :
+                        `<p>
+                            🔒 Unlock at ${r.unlock} stars
+                        </p>`
+                    }
+
+                </div>
+
+                ${
+                    unlocked
+                    ? `<span>✓</span>`
+                    : `<span class="lock">🔒</span>`
+                }
+
+            </div>
+
+            `;
+
+        }).join("")}
+
+    </div>
+    `;
+}
+
+/* =========================
+   SHOP
+========================= */
+
+function shopPage(){
+
+    return `
+    ${topbar()}
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <h2>🛒 Kitchen Shop</h2>
+
+            <div class="stat">
+                🪙 ${state.coins}
+            </div>
+
+        </div>
+
+        ${upgrades.map(u=>{
+
+            const bought =
+                state.purchasedUpgrades
+                    .includes(u.id);
+
+            return `
+
+            <div class="upgrade">
+
+                <div class="upgrade-icon">
+                    ${u.icon}
+                </div>
+
+                <div class="upgrade-info">
+
+                    <h3>${u.name}</h3>
+
+                    <p>${u.description}</p>
+
+                </div>
+
+                <button
+                    class="buy"
+                    ${
+                        bought ||
+                        state.coins<u.cost
+                        ? "disabled":""
+                    }
+                    onclick="buyUpgrade('${u.id}')"
+                >
+
+                    ${
+                        bought
+                        ? "OWNED"
+                        : "🪙 "+u.cost
+                    }
+
+                </button>
+
+            </div>
+
+            `;
+
+        }).join("")}
+
+    </div>
+    `;
+}
+
+function buyUpgrade(id){
+
+    const upgrade =
+        upgrades.find(x=>x.id===id);
+
+    if(!upgrade) return;
+
+    if(state.purchasedUpgrades.includes(id)){
+
+        toast("Already purchased!");
+
+        return;
+
+    }
+
+    if(state.coins < upgrade.cost){
+
+        toast("Coins belum cukup! 🪙");
+
+        return;
+
+    }
+
+    state.coins -= upgrade.cost;
+
+    state.purchasedUpgrades.push(id);
+
+    save();
+
+    toast(
+        `${upgrade.name} purchased! ✨`
+    );
+
+    render("shop");
+
+}
+
+/* =========================
+   STORY
+========================= */
+
+function storyPage(){
+
+    return `
+    ${topbar()}
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <h2>📖 Liza's Story</h2>
+
+        </div>
+
+        ${stories.map((s,i)=>`
+
+            <div class="story">
+
+                <div class="story-number">
+                    ${i+1}
+                </div>
+
+                <h3>${s.title}</h3>
+
+                <p>${s.text}</p>
+
+            </div>
+
+        `).join("")}
+
+    </div>
+    `;
+}
+
+/* =========================
+   HOW TO PLAY
+========================= */
+
+function howPage(){
+
+    return `
+    ${topbar()}
+
+    <div class="section">
+
+        <div class="info-card">
+
+            <h3>👩‍🍳 1. Take Orders</h3>
+
+            <p>
+                Customers arrive with their favorite
+                recipe. Check their order carefully.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>🥚 2. Select Ingredients</h3>
+
+            <p>
+                Choose every ingredient required
+                by the recipe.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>🥣 3. Prepare</h3>
+
+            <p>
+                Press the preparation button until
+                the progress reaches 100%.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>🔥 4. Cook</h3>
+
+            <p>
+                Stop the moving marker inside the
+                green zone to get PERFECT cooking.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>💰 5. Earn Rewards</h3>
+
+            <p>
+                Serve customers to earn coins.
+                Perfect cooking also gives stars.
+            </p>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>🛒 6. Upgrade</h3>
+
+            <p>
+                Spend coins on kitchen upgrades
+                to make future levels easier.
+            </p>
+
+        </div>
+
+    </div>
+    `;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+function settingsPage(){
+
+    return `
+    ${topbar()}
+
+    <div class="section">
+
+        <div class="setting">
+
+            <div>
+                <b>🔊 Sound Effects</b>
+            </div>
+
+            <button
+                class="toggle ${state.sound?"on":""}"
+                onclick="toggleSound()"
+            >
+                <div class="toggle-circle"></div>
+            </button>
+
+        </div>
+
+        <div class="setting">
+
+            <div>
+                <b>🎵 Cozy Music</b>
+            </div>
+
+            <button
+                class="toggle ${state.music?"on":""}"
+                onclick="toggleMusic()"
+            >
+                <div class="toggle-circle"></div>
+            </button>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>📊 Game Progress</h3>
+
+            <p>
+                Coins: ${state.coins}<br>
+                Stars: ${state.stars}<br>
+                Level: ${state.level}<br>
+                Score: ${state.score}<br>
+                Recipes: ${state.unlockedRecipes.length}/${recipes.length}<br>
+                Upgrades: ${state.purchasedUpgrades.length}/${upgrades.length}
+            </p>
+
+        </div>
+
+        <button
+            class="danger"
+            onclick="resetGame()"
+        >
+            Reset All Progress
+        </button>
+
+    </div>
+    `;
+}
+
+function toggleSound(){
+
+    state.sound=!state.sound;
+
+    save();
+
+    render("settings");
+
+}
+
+function toggleMusic(){
+
+    state.music=!state.music;
+
+    save();
+
+    render("settings");
+
+}
+
+function resetGame(){
+
+    if(
+        confirm(
+            "Reset semua progress game?"
+        )
+    ){
+
+        localStorage.removeItem(
+            "lizaCozyKitchen"
+        );
+
+        location.reload();
+
+    }
+
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function bottomNav(page){
+
+    return `
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item ${page==="home"?"active":""}"
+            onclick="render('home')"
+        >
+            <span>🏠</span>
+            Home
+        </button>
+
+        <button
+            class="nav-item ${page==="kitchen"?"active":""}"
+            onclick="startGame()"
+        >
+            <span>🍳</span>
+            Kitchen
+        </button>
+
+        <button
+            class="nav-item ${page==="recipes"?"active":""}"
+            onclick="render('recipes')"
+        >
+            <span>📕</span>
+            Recipes
+        </button>
+
+        <button
+            class="nav-item ${page==="shop"?"active":""}"
+            onclick="render('shop')"
+        >
+            <span>🛒</span>
+            Shop
+        </button>
+
+        <button
+            class="nav-item ${page==="settings"?"active":""}"
+            onclick="render('settings')"
+        >
+            <span>⚙️</span>
+            Settings
+        </button>
+
+    </nav>
+    `;
+
+}
+
+/* =========================
+   MODAL
+========================= */
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
+}
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function toast(message){
+
+    const el =
+        document.getElementById("toast");
+
+    el.innerText=message;
+
+    el.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(()=>{
+            el.classList.remove("show");
+        },2200);
+
+}
+
+/* =========================
+   RECIPE UNLOCK
+========================= */
+
+function checkUnlocks(){
+
+    recipes.forEach(recipe=>{
+
+        if(
+            state.stars >= recipe.unlock &&
+            !state.unlockedRecipes.includes(recipe.id)
+        ){
+
+            state.unlockedRecipes.push(
+                recipe.id
+            );
+
+            toast(
+                `New recipe unlocked: ${recipe.name}! 🍰`
+            );
+
+        }
+
+    });
+
+    save();
+
+}
+
+/* =========================
+   LEVEL PROGRESSION
+========================= */
+
+function updateLevel(){
+
+    const newLevel =
+        Math.floor(state.stars/5)+1;
+
+    if(newLevel > state.level){
+
+        state.level=newLevel;
+
+        toast(
+            `Level ${newLevel} unlocked! 🌟`
+        );
+
+    }
+
+    checkUnlocks();
+
+}
+
+/* =========================
+   PATCH STAR ADDITION
+========================= */
+
+const originalStopCooking =
+    stopCooking;
+
+stopCooking = function(){
+
+    if(!cooking) return;
+
+    cooking=false;
+
+    clearInterval(cookingInterval);
+
+    let quality="GOOD";
+    let rewardMultiplier=1;
+
+    let distance =
+        Math.abs(marker-50);
+
+    if(distance<=8){
+
+        quality="PERFECT";
+        rewardMultiplier=1.5;
+
+    }else if(distance<=20){
+
+        quality="GOOD";
+
+    }else{
+
+        quality="BURNT";
+        rewardMultiplier=.5;
+
+    }
+
+    let reward =
+        Math.floor(
+            currentRecipe.reward *
+            rewardMultiplier
+        );
+
+    let bonus=1;
+
+    if(state.purchasedUpgrades.includes("oven"))
+        bonus+=.20;
+
+    if(state.purchasedUpgrades.includes("utensils"))
+        bonus+=.15;
+
+    if(state.purchasedUpgrades.includes("lights"))
+        bonus+=.05;
+
+    reward=Math.floor(reward*bonus);
+
+    state.coins+=reward;
+    state.score+=reward;
+
+    if(quality==="PERFECT")
+        state.stars++;
+
+    updateLevel();
+
+    save();
+
+    showResult(
+        quality,
+        reward
+    );
+
+};
+
+/* =========================
+   INITIALIZE
+========================= */
+
+render("home");
+
+</script>
+
+</body>
+</html>
